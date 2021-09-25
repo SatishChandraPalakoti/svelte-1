@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+      "module": "esNext",
+      "target": "esnext",
+      "moduleResolution": "node",
+      "strict": true,
+      "noImplicitAny": true
+    },
+    "exclude": ["./node_modules"],
+    "paths":{
+        "express": ["./node_modules/express/lib/express"]
+    }
+  }
