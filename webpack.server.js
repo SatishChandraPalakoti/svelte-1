@@ -30,13 +30,5 @@ module.exports = {
                 ]
             }
         ]
-    },
-    plugins: [
-        new htmlWebpackPlugin({
-          template: "dist/index.html",
-          filename: "index.html",
-          excludeChunks: [ 'server' ]
-        })
-      ]
-
+    }
 }
