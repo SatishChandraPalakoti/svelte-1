@@ -1347,7 +1347,7 @@ eval("module.exports = function (module) {\n  if (!module.webpackPolyfill) {\n  
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const express = __webpack_require__(/*! express */ \"./node_modules/express/index.js\");\n\nconst app = express();\n\nconst path = __webpack_require__(/*! path */ \"path\"); // app.use(\"/dist/\", express.static(__dirname+\"/dist/\"))\n\n\napp.get(\"/\", (request, response) => {\n  response.sendFile(path.join(__dirname + \"/index.html\"));\n});\napp.listen(5000);\nprocess.on(\"exit\", shutdown);\nprocess.on(\"SIGINT\", shutdown);\n\nfunction shutdown() {\n  process.exit();\n}\n\n//# sourceURL=webpack:///./server.js?");
+eval("const express = __webpack_require__(/*! express */ \"./node_modules/express/index.js\");\n\nconst app = express();\n\nconst path = __webpack_require__(/*! path */ \"path\"); // app.use(\"/\", express.static(__dirname+\"/dist\"))\n// app.use(\"/\",express.static('dist'))\n\n\napp.get(\"/\", express.static(__dirname), (request, response) => {\n  let x = path.join(__dirname);\n  console.log(\"Value of x is\", x);\n  response.sendFile(path.join(__dirname + \"/index.html\"));\n});\napp.listen(5000);\nprocess.on(\"exit\", shutdown);\nprocess.on(\"SIGINT\", shutdown);\n\nfunction shutdown() {\n  process.exit();\n}\n\n//# sourceURL=webpack:///./server.js?");
 
 /***/ }),
 
