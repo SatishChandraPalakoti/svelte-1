@@ -8,7 +8,7 @@ module.exports = {
     },
     output: {
         filename : "[name]-bundle.js",
-        publicPath: '/dist/',
+        publicPath: '/',
         path: path.resolve(__dirname, "dist")
     },
     resolve:{
@@ -35,7 +35,13 @@ module.exports = {
                 test: /\.(t|j)sx?$/,
                 exclude: /node_modules/,
                 loader: "babel-loader",
-              }
+              },
+              {
+                test: /\.html$/,
+                use: [{
+                    loader: "html-loader",
+                }]
+            }
         ]
     },
     plugins : [new htmlWebpackPlugin({ template : "./public/index.html"})],

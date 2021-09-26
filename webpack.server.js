@@ -1,34 +1,49 @@
-const htmlWebpackPlugin = require("html-webpack-plugin")
 const path = require("path")
-const svelteProceprocess = require("svelte-preprocess")
-const nodemonPlugin = require("nodemon-webpack-plugin")
+var NodemonPlugin = require("nodemon-webpack-plugin");
+const nodeExternals = require("webpack-node-externals");
+const htmlWebpackPlugin = require('html-webpack-plugin');
+const {
+    dirname
+} = require("path");
+
 module.exports = {
-    entry :{
-        main : "./server.js"
+    entry: {
+        server: "./server.js"
     },
+    mode: "development",
     output: {
-        path: path.resolve(__dirname, "dist"),
-        publicPath: "/dist/",
-        filename: '[name].js'
+        path: path.join(__dirname, './dist'),
+        publicPath: "/",
+        filename: '[name]-bundle.js'
     },
-    target:"node",
-    "node":{
+    target: "node",
+    node: {
         __dirname: false,
         __filename: false
     },
-    resolve:{
-        extensions : [".js"],
-        modules : [path.resolve("./"), path.resolve("./node_modules")]
-    },
-    mode: "development",
-    module  :{
-        rules : [
-            {
+    externals: [nodeExternals()],
+    module: {
+        rules: [{
                 test: /\.js$/,
-                use: [
-                    {loader: "babel-loader"},
-                ]
+                exclude: /node_modules/,
+                use: [{
+                    loader: "babel-loader"
+                }]
+            },
+            {
+                test: /\.html$/,
+                use: [{
+                    loader: "html-loader",
+                }]
             }
         ]
-    }
+    },
+    plugins: [
+        new NodemonPlugin(),
+        new htmlWebpackPlugin({
+            template: "./public/index.html",
+            filename: "./index.html",
+            excludeChunks: ['server']
+        })
+    ]
 }
